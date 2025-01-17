@@ -15,13 +15,17 @@ const AddShoes = () => {
 
   useEffect(() => {
     // Fetch shoes data from Laravel API when the component mounts
-    axios.get('http://localhost:8000/api/shoes')
+    axios.get(`${import.meta.env.VITE_REACT_APP_API_BASE_URL}/api/shoes`)
       .then(response => setShoes(response.data.shoes))
       .catch(error => console.error('Error fetching shoes:', error));
   }, []);
 
   const handleFileChange = (e) => {
     setNewShoe({ ...newShoe, shoes_image: e.target.files[0] });
+  };
+
+  const handleBgChange = (e) => {
+    setNewShoe({ ...newShoe, background_image: e.target.files[0] });
   };
 
   const handleInputChange = (e) => {
@@ -33,11 +37,12 @@ const AddShoes = () => {
     const formData = new FormData();
     formData.append('shoes_name', newShoe.shoes_name);
     formData.append('shoes_image', newShoe.shoes_image);
+    formData.append('background_image', newShoe.background_image);
     formData.append('price', newShoe.price);
 
-    axios.post('http://localhost:8000/api/shoes/create', formData)
+    axios.post(`${import.meta.env.VITE_REACT_APP_API_BASE_URL}/api/shoes/create`, formData)
       .then(response => {
-        setShoes([...shoes, response.data.shoe]);
+        // setShoes([...shoes, response.data.shoe]);
         setNewShoe({ shoes_name: '', shoes_image: null, price: '' });
         Swal.fire({
             title: "The Internet?",
@@ -65,7 +70,7 @@ const AddShoes = () => {
           onClick={() => handleSelectShoe(shoe)}
         >
         <img
-          src={`http://localhost:8000/storage/${shoe.shoes_image}`}
+          src={`${import.meta.env.VITE_REACT_APP_API_BASE_URL}/storage/${shoe.shoes_image}`}
           alt={shoe.shoes_name}
           className="mt-4 w-60"
         />
@@ -87,21 +92,25 @@ const AddShoes = () => {
             className="p-2  border rounded mb-4 mr-4 w-1/3 "
         />
         
-        <input
-            type="text"
-            name="price"
-            placeholder="Price"
-            value={newShoe.price}
-            onChange={handleInputChange}
-            className="p-2  border rounded mb-4 w-1/3"
-        />
       </div>
+      <div className='flex flex-col pb-4'>
+        <span>Gambar Sepatu</span>
       <input
         type="file"
         name="shoes_image"
         onChange={handleFileChange}
         className="mb-2"
       />
+      </div>
+     <div className='flex flex-col pb-4'>
+     <span>Gambar Background</span>
+      <input
+        type="file"
+        name="background_image"
+        onChange={handleBgChange}
+        className="mb-2"
+      />
+     </div>
       <button
         onClick={handleCreateShoe}
         className="bg-blue-500 text-white p-2 rounded cursor-pointer"
@@ -117,7 +126,7 @@ const AddShoes = () => {
         <p><strong>Name:</strong> {selectedShoe.shoes_name}</p>
         <p><strong>Price:</strong> {selectedShoe.price}</p>
         <img
-          src={`http://localhost:8000/storage/${selectedShoe.shoes_image}`}
+          src={`${import.meta.env.VITE_REACT_APP_API_BASE_URL}/storage/${selectedShoe.shoes_image}`}
           alt={selectedShoe.shoes_name}
           className="mt-4"
         />

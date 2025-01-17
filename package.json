@@ -10,12 +10,22 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@react-three/drei": "^9.92.7",
+    "@react-three/fiber": "^8.15.12",
     "axios": "^1.6.2",
+    "gltfjsx": "^6.2.16",
+    "html-to-image": "^1.11.11",
+    "html2canvas": "^1.4.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-icons": "^4.12.0",
+    "react-loading": "^2.0.3",
     "react-router-dom": "^6.21.0",
     "sweetalert2": "^11.10.1",
-    "tw-elements": "^1.1.0"
+    "three": "^0.160.0",
+    "three-addons": "^1.2.0",
+    "tw-elements": "^1.1.0",
+    "use-react-screenshot": "^3.0.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.43",
